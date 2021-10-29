@@ -1,13 +1,31 @@
 from django.db import models
 
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, RichTextFieldPanel, StreamFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
+
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.blocks import RichTextBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
+
 
 class HomePage(Page):
     # поля в базе данных
-    subtitle = models.CharField(max_length=150, blank=True, null=True, verbose_name='Подзаголовок')
+    subtitle = models.CharField(blank=True, null=True, max_length=150, verbose_name='Подзаголовок')
+    rtf_body = RichTextField(blank=True, null=True, verbose_name='Основной текст')
+    bg_image = models.ForeignKey(to='wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='+', verbose_name='Фоновая картинка')
+
+    body = StreamField([
+        ('rtfblock', RichTextBlock()),
+        ('imgblock', ImageChooserBlock()),
+        ('youtubeblock', EmbedBlock()),
+    ], blank=True, verbose_name='Основной текст статьи')
 
     # поля в админке для ввода данных
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle')
+        FieldPanel('subtitle'),
+        RichTextFieldPanel('rtf_body'),
+        ImageChooserPanel('bg_image'),
+        StreamFieldPanel('body'),
     ]
