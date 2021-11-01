@@ -19,7 +19,7 @@ class NewsPage(Page):
 
 class HomePage(Page):
 
-    subpage_types = ['.NewsPage']
+    subpage_types = []
     parent_subpage_types = []
 
     # поля в базе данных
