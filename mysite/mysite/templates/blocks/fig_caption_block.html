@@ -1,0 +1,10 @@
+<!--иммпортируем теги для работы с изображениями-->
+{% load wagtailimages_tags %}
+
+<!--код HTML для вставки изображения с текстом теги figure-->
+<figure>
+  <!--вставляем код для вывода изображения figure -->
+  {% image self.figure fill-300x300-c85 %}
+  <!--вставляем код для вывода описания-->
+  <figcaption> {{ self.caption }} </figcaption>
+</figure>

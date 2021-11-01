@@ -9,28 +9,40 @@ from wagtail.core.blocks import RichTextBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 
+from .blocks import FigCaptionBlock
+
+
+class NewsPage(Page):
+    # поля в базе данных
+    pass
+
 
 class HomePage(Page):
+
+    subpage_types = ['.NewsPage']
+    parent_subpage_types = []
+
     # поля в базе данных
-    # subtitle = models.CharField(
-    #     blank=True, null=True,
-    #     max_length=150,
-    #     verbose_name='Подзаголовок'
-    # )
-    # rtf_body = RichTextField(
-    #     features=['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'bold', 'italic'],
-    #     blank=True, null=True,
-    #     verbose_name='Основной текст'
-    # )
-    # bg_image = models.ForeignKey(
-    #     to='wagtailimages.Image',
-    #     blank=True, null=True,
-    #     on_delete=models.SET_NULL,
-    #     related_name='+',
-    #     verbose_name='Фоновая картинка'
-    # )
+    subtitle = models.CharField(
+        blank=True, null=True,
+        max_length=150,
+        verbose_name='Подзаголовок'
+    )
+    rtf_body = RichTextField(
+        features=['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'bold', 'italic'],
+        blank=True, null=True,
+        verbose_name='Основной текст'
+    )
+    bg_image = models.ForeignKey(
+        to='wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Фоновая картинка'
+    )
 
     body = StreamField([
+        ('figcaptureblock', FigCaptionBlock()),
         ('rtfblock', RichTextBlock(
             features=['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'bold', 'italic', 'ol', 'ul'],
             label='Текст',
@@ -55,8 +67,8 @@ class HomePage(Page):
 
     # поля в админке для ввода данных
     content_panels = Page.content_panels + [
-        # FieldPanel('subtitle'),
-        # RichTextFieldPanel('rtf_body'),
-        # ImageChooserPanel('bg_image'),
+        FieldPanel('subtitle'),
+        RichTextFieldPanel('rtf_body'),
+        ImageChooserPanel('bg_image'),
         StreamFieldPanel('body'),
     ]
