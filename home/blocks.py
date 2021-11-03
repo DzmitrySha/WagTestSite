@@ -3,11 +3,12 @@ from wagtail.core.blocks import StructBlock, CharBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 # создаем блок для вставки изображения с текстом, наследуем от StructBlock
+
 class FigCaptionBlock(StructBlock):
     # текст
-    figure = ImageChooserBlock(label='Описание картинки')
+    figure = ImageChooserBlock(label='Картинка')
     # изображение
-    caption = CharBlock(label='Картинка')
+    caption = CharBlock(label='Описание картинки')
 
     class Meta:
         # иконка блока

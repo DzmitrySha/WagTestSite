@@ -24,8 +24,11 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    # приложение для создания главной страницы сайта
     'home',
+    # приложение для организации поиска по сайту
     'search',
+    # приложение для кастомизации админки (переопределяет стандартные логотипы, надписи и т.д.)
     'dashboard',
 
     'wagtail.contrib.forms',
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
+    # приложение для добавления в админку гида по стилям wagtail
     'wagtail.contrib.styleguide',
 
     'modelcluster',
@@ -157,7 +161,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "mysite"
+WAGTAIL_SITE_NAME = "Мой сайт"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
