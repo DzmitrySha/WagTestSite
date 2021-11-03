@@ -13,14 +13,16 @@ from .blocks import FigCaptionBlock
 
 
 class NewsPage(Page):
+    # задаем название шаблона вручную (по-умолчанию подхватывается шаблон 'home/news_page.html' в camel-case)
+    template = 'home/newspage.html'
     # поля в базе данных
     pass
 
 
 class HomePage(Page):
 
-    subpage_types = []
-    parent_subpage_types = []
+    subpage_types = ['home.NewsPage']
+    # parent_subpage_types = []
 
     # поля в базе данных
     subtitle = models.CharField(
