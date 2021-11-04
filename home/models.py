@@ -11,9 +11,32 @@ from wagtail.embeds.blocks import EmbedBlock
 
 from .blocks import FigCaptionBlock
 
+from wagtail.snippets.models import register_snippet
+
+
+@register_snippet
+class Footer(models.Model):
+    bodytext = RichTextField(
+        features=['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'bold', 'italic'],
+        blank=True, null=True,
+        verbose_name='Текст подвала сайта'
+    )
+    # поля в админке для ввода данных для
+    panels = [
+        FieldPanel('bodytext')
+    ]
+
+    class Meta:
+        verbose_name = "Подвал сайта"
+        verbose_name_plural = "Подвалы сайта"
+
+    # магическая функция для правильного отображения названия
+    def __str__(self):
+        return "Подвал сайта"
+
 
 class NewsPage(Page):
-    # задаем название шаблона вручную (по-умолчанию подхватывается шаблон 'home/news_page.html' в camel-case)
+    # задаем название шаблона вручную (по-умолчанию подхватывается шаблон 'home/news_page.html' написанный в camel-case)
     template = 'home/newspage.html'
     # поля в базе данных
     pass
