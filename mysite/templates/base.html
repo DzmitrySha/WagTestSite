@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar %}
+{% load static wagtailcore_tags wagtailuserbar base_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="ru">
@@ -34,6 +34,8 @@
         {% block content %}
         {% endblock %}
 
+
+
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
 
@@ -41,4 +43,7 @@
             {# Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
+
+<!--наш созданный тег футера-->
+        {% footer_tag %}
 </html>

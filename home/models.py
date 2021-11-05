@@ -17,7 +17,6 @@ from wagtail.snippets.models import register_snippet
 @register_snippet
 class Footer(models.Model):
     bodytext = RichTextField(
-        features=['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'bold', 'italic'],
         blank=True, null=True,
         verbose_name='Текст подвала сайта'
     )
