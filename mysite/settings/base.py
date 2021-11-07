@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'search',
     # приложение для кастомизации админки (переопределяет стандартные логотипы, надписи и т.д.)
     'dashboard',
+    # приложение для добавления отдельных сниппетов к страницам сайта
+    'equipment',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

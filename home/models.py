@@ -43,8 +43,8 @@ class NewsPage(Page):
 
 class HomePage(Page):
 
-    subpage_types = ['home.NewsPage']
-    # parent_subpage_types = []
+    # subpage_types = ['home.NewsPage']
+    parent_subpage_types = []
 
     # поля в базе данных
     subtitle = models.CharField(
