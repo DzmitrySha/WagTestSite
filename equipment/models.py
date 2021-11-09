@@ -1,8 +1,26 @@
 from django.db import models
+from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
+# импортируем админ-панели wagtail
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
-from wagtail.admin.edit_handlers import FieldPanel
+
+# создаем класс EquipmentOperator для создания сниппета
+
+class EquipmentOperator(models.Model):
+    ''' Оператор оборудования (сниппет) '''
+
+    # параметры сниппета имя и имейл
+    name = models.CharField(max_length=100, blank=False, null=False)
+    email = models.EmailField()
+
+    # параметр для установки связей сниппета со страницей в базе данных
+    equipment = ParentalKey(
+        'equipment.EquipmentPage',
+        on_delete=models.CASCADE,
+        related_name='operators',
+    )
 
 
 class EquipmentPage(Page):
@@ -17,6 +35,12 @@ class EquipmentPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('description'),
+        # добавляем возможность добавления поля EquipmentOperator на страницу в панель админки
+        # используем related_name нашего сниппета EquipmentOperator и специальную панель InlinePanel
+        MultiFieldPanel(
+            [InlinePanel('operators', label="оператора")],
+            heading="Операторы"
+        )
     ]
 
     subpage_types = []
@@ -28,7 +52,7 @@ class EquipmentPage(Page):
 
 
 class EquipmentIndexPage(Page):
-    '''Страница для выведения списка всего оборудования'''
+    ''' Страница для выведения списка всего оборудования '''
 
     max_count = 1
 
